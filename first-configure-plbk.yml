@@ -1,0 +1,53 @@
+---
+- name: configure new VB servers
+  hosts: new
+  become: true
+  become_method: su
+#  become: yes
+#  become_user: root
+#  become_method: sudo
+
+#  tasks:
+#    - name: change hostname
+#      command: hostnamectl set-hostname comp1
+  tasks:
+    - name: Ping hosts
+      ansible.builtin.ping:
+
+  tasks:
+    - name: Выполнить команду 'ls -l /home/user1'
+      ansible.builtin.command: ls -l /home/user1
+      register: command_output # Сохранить вывод команды в переменную
+
+    - name: Показать вывод команды
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+
+  tasks:
+   - name: Выполнить команду  hostname
+     ansible.builtin.hostname:
+      name: comp1
+#      register: command_output # Сохранить вывод команды в переменную
+
+#    - name: Показать вывод команды
+#      ansible.builtin.debug:
+#        var: command_output.stdout_lines
+
+
+
+
+
+#    - name: sdfdf
+#      command: ls -la /home
+
+#  - name: create ansible user
+#    user: 
+#      name: ansible 
+#      shell: /bin/bash 
+#      home: /home/ansible 
+
+#  - name: copy ssh pubkey to home directory
+#    authorized_key: 
+#      user: ansible 
+#      key: "{{ lookup('file', './ansible_pubkey') }}"

@@ -1,0 +1,14 @@
+
+---
+- name: Install default Apache Web Server
+  hosts: all
+  become: true
+
+
+  tasks:
+    - name: Install Apach
+      apt: pkg=apache2 state=installed update_cache=true
+#      ask-become-pass: yes
+
+    - name: Start Apache
+      service: name=httpd state=started enabled=yes

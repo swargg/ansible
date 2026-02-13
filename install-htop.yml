@@ -1,0 +1,11 @@
+---
+- name: Install htop
+  hosts: all
+  become: true
+
+
+  tasks:
+    - name: Install htop
+      command: apt install htop
+
+
