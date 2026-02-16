@@ -30,11 +30,25 @@
       name: "{{ inventory_hostname }}" #присваиваем серверам имена из инвентаря
 #      register: command_output # Сохранить вывод команды в переменную
 
-#    - name: Показать вывод команды
-#      ansible.builtin.debug:
-#        var: command_output.stdout_lines
+  tasks:
+   - name: установка curl
+     apt:
+       name:
+         - curl
+       state: present
+       update_cache: yes
 
 
+  tasks:
+   - name: скачиваем docker-скрипт
+     ansible.builtin.command: curl https://get.docker.com -o get-docker.sh
+
+
+  tasks:
+   - name: устанавливаем Docker из скрипта
+     ansible.builtin.command: sh /home/user1/get-docker.sh
+     become: true
+     become_method: su
 
 
 
