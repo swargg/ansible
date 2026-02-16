@@ -27,7 +27,7 @@
   tasks:
    - name: Выполнить команду  hostname
      ansible.builtin.hostname:
-      name: comp1
+      name: "{{ inventory_hostname }}" #присваиваем серверам имена из инвентаря
 #      register: command_output # Сохранить вывод команды в переменную
 
 #    - name: Показать вывод команды
