@@ -1,0 +1,9 @@
+---
+- name: poweroff
+  hosts: new
+  become: yes
+  become_method: su
+
+  tasks:
+    - name: poweroff
+      ansible.builtin.command: systemctl poweroff

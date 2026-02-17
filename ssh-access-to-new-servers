@@ -1,0 +1,15 @@
+---
+- name: make ssh-acces to new servers
+  hosts: new
+
+  tasks:
+   - name: ssh-key add to authorized_keys
+     authorized_key:
+      user: "{{ ansible_user }}"
+      state: present
+      key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+     register: ssh_key_add_result
+
+   - name: Показать результат ssh-key add to authorized_keys
+     debug:
+       var: ssh_key_add_result.stdout

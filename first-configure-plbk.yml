@@ -3,65 +3,37 @@
   hosts: new
   become: true
   become_method: su
-#  become: yes
-#  become_user: root
-#  become_method: sudo
-
-#  tasks:
-#    - name: change hostname
-#      command: hostnamectl set-hostname comp1
-  tasks:
-    - name: Ping hosts
-      ansible.builtin.ping:
 
   tasks:
-    - name: Выполнить команду 'ls -l /home/user1'
-      ansible.builtin.command: ls -l /home/user1
-      register: command_output # Сохранить вывод команды в переменную
-
-    - name: Показать вывод команды
-      ansible.builtin.debug:
-        var: command_output.stdout_lines
-
-
-  tasks:
-   - name: Выполнить команду  hostname
-     ansible.builtin.hostname:
-      name: "{{ inventory_hostname }}" #присваиваем серверам имена из инвентаря
-#      register: command_output # Сохранить вывод команды в переменную
-
-  tasks:
-   - name: установка curl
-     apt:
-       name:
-         - curl
+    - name: ssh-key add to authorized_keys
+      authorized_key:
+       user: "{{ ansible_user }}"
        state: present
-       update_cache: yes
+       key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      register: ssh_key_add_result
+
+    - name: Показать результат ssh-key add to authorized_keys
+      debug:
+       var: ssh_key_add_result.stdout
+
+  
+    - name: Выполнить команду  hostname
+      ansible.builtin.hostname:
+       name: "{{ inventory_hostname }}" #присваиваем серверам имена из инвентаря
+ 
+    - name: установка curl
+      apt:
+        name:
+         - curl
+        state: present
+        update_cache: yes
 
 
-  tasks:
-   - name: скачиваем docker-скрипт
-     ansible.builtin.command: curl https://get.docker.com -o get-docker.sh
+    - name: скачиваем docker-скрипт
+      ansible.builtin.command: curl https://get.docker.com -o get-docker.sh
 
 
-  tasks:
-   - name: устанавливаем Docker из скрипта
-     ansible.builtin.command: sh /home/user1/get-docker.sh
-     become: true
-     become_method: su
+  
+    - name: устанавливаем Docker из скрипта
+      ansible.builtin.command: sh /home/user1/get-docker.sh
 
-
-
-#    - name: sdfdf
-#      command: ls -la /home
-
-#  - name: create ansible user
-#    user: 
-#      name: ansible 
-#      shell: /bin/bash 
-#      home: /home/ansible 
-
-#  - name: copy ssh pubkey to home directory
-#    authorized_key: 
-#      user: ansible 
-#      key: "{{ lookup('file', './ansible_pubkey') }}"
