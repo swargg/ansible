@@ -16,6 +16,8 @@
       debug:
        var: ssh_key_add_result.stdout
 
+    - name: отключить gdm
+      ansible.builtin.command: systemctl disable gdm
   
     - name: Выполнить команду  hostname
       ansible.builtin.hostname:
