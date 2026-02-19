@@ -20,3 +20,9 @@
 
     - name: устанавливаем Docker из скрипта
       ansible.builtin.command: sh ~/get-docker.sh
+
+    - name: копируем докер-файл на сервера
+      ansible.builtin.command: curl https://github.com/swargg/swargg.ru/blob/main/dockerfile -o dockerfile
+    
+#    - name: поднимаем веб-сервера
+#      ansible.builtin.command: 
