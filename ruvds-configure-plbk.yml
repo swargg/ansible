@@ -22,7 +22,16 @@
       ansible.builtin.command: sh ~/get-docker.sh
 
     - name: копируем докер-файл на сервера
-      ansible.builtin.command: curl https://github.com/swargg/swargg.ru/blob/main/dockerfile -o dockerfile
+      ansible.builtin.command: curl https://raw.githubusercontent.com/swargg/swargg.ru/refs/heads/main/dockerfile -o dockerfile
+
+    - name: создаем директорию www
+      ansible.builtin.command: mkdir www
+
+    - name: копируем файл сайта   
+      ansible.builtin.command: curl https://raw.githubusercontent.com/swargg/swargg.ru/refs/heads/main/index.html -o /root/www/index.html
     
-#    - name: поднимаем веб-сервера
-#      ansible.builtin.command: 
+    - name: собираем свой контейнер веб-сервера
+      ansible.builtin.command: docker build -t swarggconteiner .
+
+    - name: запускаем контейнер веб-сервера
+      ansible.builtin.command: docker run -d -p 80:80 --name swargg.ru-running-site swargg.ru-conteiner
