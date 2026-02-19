@@ -1,0 +1,22 @@
+---
+- name: configure new ruVDS servers
+  hosts: ruvds
+
+  tasks:
+      
+    - name: Выполнить команду  hostname
+      ansible.builtin.hostname:
+       name: "{{ inventory_hostname }}" #присваиваем серверам имена из инвентаря
+ 
+    - name: установка curl
+      apt:
+        name:
+         - curl
+        state: present
+        update_cache: yes
+
+    - name: скачиваем docker-скрипт
+      ansible.builtin.command: curl https://get.docker.com -o get-docker.sh
+
+    - name: устанавливаем Docker из скрипта
+      ansible.builtin.command: sh ~/get-docker.sh
