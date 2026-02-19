@@ -34,4 +34,4 @@
       ansible.builtin.command: docker build -t swarggconteiner .
 
     - name: запускаем контейнер веб-сервера
-      ansible.builtin.command: docker run -d -p 80:80 --name swargg.ru-running-site swargg.ru-conteiner
+      ansible.builtin.command: docker run -d -p 80:80 --name swarggrunningsite swarggconteiner

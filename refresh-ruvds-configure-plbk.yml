@@ -1,0 +1,8 @@
+---
+- name: configure new ruVDS servers
+  hosts: ruvds
+
+  tasks:
+      
+    - name: копируем файл сайта   
+      ansible.builtin.command: curl https://raw.githubusercontent.com/swargg/swargg.ru/refs/heads/main/index.html -o /usr/share/nginx/html
