@@ -7,5 +7,5 @@
     - name: копируем файл сайта   
       ansible.builtin.command: curl https://raw.githubusercontent.com/swargg/swargg.ru/refs/heads/main/index.html -o /root/www/index.html
 
-    - name: перехапускаем контейнер
-      ansible.builtin.command: docker restart 
+    - name: перезапускаем контейнер
+      ansible.builtin.command: docker restart swarggru
