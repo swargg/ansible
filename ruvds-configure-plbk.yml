@@ -30,9 +30,12 @@
 
     - name: копируем файл сайта   
       ansible.builtin.command: curl https://raw.githubusercontent.com/swargg/swargg.ru/refs/heads/main/index.html -o /root/www/index.html
-    
+
+    - name: останавливаем контейнер, если запущен
+      ansible.builtin.command: docker stop swarggru
+      
     - name: собираем свой контейнер веб-сервера
       ansible.builtin.command: docker build -t swarggru .
 
     - name: запускаем контейнер веб-сервера
-      ansible.builtin.command: docker run --rm -d -p 80:80 --name swarggru swarggru
+      ansible.builtin.command: docker run --rm -d -v /root/www/:/usr/share/nginx/html/ -p 80:80 --name swarggru swarggru
