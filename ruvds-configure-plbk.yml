@@ -26,12 +26,13 @@
 
     - name: создаем директорию www
       ansible.builtin.command: mkdir www
+      ignore_errors: yes
 
     - name: копируем файл сайта   
       ansible.builtin.command: curl https://raw.githubusercontent.com/swargg/swargg.ru/refs/heads/main/index.html -o /root/www/index.html
     
     - name: собираем свой контейнер веб-сервера
-      ansible.builtin.command: docker build -t swarggconteiner .
+      ansible.builtin.command: docker build -t swarggru .
 
     - name: запускаем контейнер веб-сервера
-      ansible.builtin.command: docker run -d -p 80:80 --name swarggrunningsite swarggconteiner
+      ansible.builtin.command: docker run --rm -d -p 80:80 --name swarggru swarggru
