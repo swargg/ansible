@@ -4,8 +4,11 @@
 
   tasks:
       
-    - name: копируем файл сайта   
+    - name: копируем файл сайта в папку исходников
       ansible.builtin.command: curl https://raw.githubusercontent.com/swargg/swargg.ru/refs/heads/main/index.html -o /root/www/index.html
 
-    - name: перезапускаем контейнер
-      ansible.builtin.command: docker restart swarggru
+    - name: копируем файл сайта из папки исходников в рабочую папку запущенного контейнера
+      ansible.builtin.command: docker cp /root/www/index.html swarggru:/usr/share/nginx/html/
+
+#    - name: перезапускаем контейнер
+#      ansible.builtin.command: docker restart swarggru
