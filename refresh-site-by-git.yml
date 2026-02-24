@@ -1,0 +1,11 @@
+---
+- name: configure new ruVDS servers
+  hosts: ruvds
+
+  tasks:
+      
+    - name: переход в папку www
+      ansible.builtin.command: cd www
+
+    - name: git pull
+      ansible.builtin.command: git pull origin main
