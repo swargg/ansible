@@ -4,8 +4,9 @@
 
   tasks:
       
-    - name: переход в папку www
-      ansible.builtin.command: cd www
-
-    - name: git pull
-      ansible.builtin.command: git pull origin main
+    - name: Deploy code from git repository
+      ansible.builtin.git:
+        repo: 'https://github.com/swargg/swargg.ru.git'
+        dest: /root/www
+        version: main # Specifies the branch, tag, or commit to checkout
+#        accept_hostkey: true
